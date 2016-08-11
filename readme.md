@@ -4,6 +4,9 @@ Advanced Message Queuing Protocol
 
 ***
 
+### How Run the Examples
+See the document [how-to-run.md](how-to-run.md)
+
 ### Producer
 Manage the messages to be published so they can be processed.
 
@@ -31,9 +34,6 @@ Store the messages consumed by the application.
 Rules used for the exchange to send messages to its linked queues.
 
 ***
-
-### How Run the Examples
-See the document [how-to-run.md](how-to-run.md)
 
 ### Reference:
 1. https://www.rabbitmq.com/tutorials/amqp-concepts.html

@@ -13,25 +13,25 @@ var args = process.argv.slice(2);
 var msg = args[0] || 'hello world';
 
 amqp.connect('amqp://localhost').then(function(conn) {
-	// here we use `when` to ensure that the connection is closed 
-	// after the `sendToQueue` event
-	return when(conn.createChannel().then(function(ch) {
-		// this will be the name of our new queue.
-		var q = 'queuet1';
+    // here we use `when` to ensure that the connection is closed 
+    // after the `sendToQueue` event
+    return when(conn.createChannel().then(function(ch) {
+        // this will be the name of our new queue.
+        var q = 'queuet1';
 
-		// we need to be sure that the queue `queuet1` exists
-		// if not, the `assertQueue` method create it.
-		var ok = ch.assertQueue(q, {durable: false});
+        // we need to be sure that the queue `queuet1` exists
+        // if not, the `assertQueue` method create it.
+        var ok = ch.assertQueue(q, {durable: false});
 
-		return ok.then(function(_qok) {
-			// after create | validate the existence of the queue
-			// we are ready to publish messages to it.
-			ch.sendToQueue(q, new Buffer(msg));
-			console.log(" [x] Sent '%s'", msg);
+        return ok.then(function(_qok) {
+            // after create | validate the existence of the queue
+            // we are ready to publish messages to it.
+            ch.sendToQueue(q, new Buffer(msg));
+            console.log(" [x] Sent '%s'", msg);
 
-			// we shouldn't need the channel anymore.
-			return ch.close();
-		});
-	})).ensure(function () { conn.close(); });
+            // we shouldn't need the channel anymore.
+            return ch.close();
+        });
+    })).ensure(function () { conn.close(); });
 }).then(null, console.warn);
 
